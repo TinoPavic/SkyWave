@@ -1,2 +1,2 @@
-# SkyWave
-HF propagation mode using reflection from Ionosphere
+# NVIS-1D
+NVIS is mode of propagation used for HF radio.

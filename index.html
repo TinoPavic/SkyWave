@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>SkyWave v0.1 by Tino Pavic VK3EGN</title>
+</head>
+
+<body>
+
+<style>
+.myDiv {
+  width: 100%;
+  font-size: 2vw;
+  border: 5px outset red;
+  background-color: lightblue;    
+  text-align: left;
+}
+.slidecontainer {  /* CSS style for all elements of class=slidecontainer */
+  width: 100%; /* Width of the outside container */
+  font-size: 1.7vw;
+}
+.slider { /* CSS style for all elements of class=slider */
+  -webkit-appearance: none;
+  width: 20%;
+  height: 20px;
+  border-radius: 5px;  
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  background: #04AA6D;
+  cursor: pointer;
+}
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #04AA6D;
+  cursor: pointer;
+}
+</style>
+
+<div class="myDiv">
+  <a id="str2">SkyWave ...Tx Ant</a>
+  <select style="font-size: 1.3em" id="antenna" name="antenna" onchange="selChange()">
+    <option value=1 selected>Dipole</option>
+    <option value=2>CASG-A1</option>
+    <option value=3>AS-F104</option>
+    <option value=4>RF-1944</option>
+    <option value=5>MIL-2</option>
+    <option value=6>WhipBnt</option>
+    <option value=7>Whip15'</option>
+    <option value=8>HF230L</option>
+    <option value=9>CASG-A2</option>
+    <option value=10>Yagi 3el</option>
+    <option value=11>VertMono</option>
+  </select>
+  <a id="str3">Rx Ant</a>
+  <select style="font-size: 1.3em" id="antenna2" name="antenna2" onchange="selChange()">
+    <option value=1 selected>Dipole</option>
+    <option value=2>CASG-A1</option>
+    <option value=3>AS-F104</option>
+    <option value=4>RF-1944</option>
+    <option value=5>MIL-2</option>
+    <option value=6>WhipBnt</option>
+    <option value=7>Whip15'</option>
+    <option value=8>HF230L</option>
+    <option value=9>CASG-A2</option>
+    <option value=10>Yagi 3el</option>
+    <option value=11>VertMono</option>
+  </select>
+  <a id="str4">Mode</a>
+  <select style="font-size: 1.3em" id="mode" name="mode" onchange="selChange()">
+    <option value=1 selected>NVIS</option>
+    <option value=2>SkyWave</option>
+    <option value=3>MultiHop</option>
+  </select>
+  <a href="Help.htm">Help</a>
+</div>
+<hr>
+
+<div class="slidecontainer">
+  <a id="slidV1">Latitude= -38 &deg S</a>
+  <input type="range" min="0" max="180" value="52" class="slider" id="slidLat" onchange="selChange()">
+  <a id="slidV2">Month= 11</a>
+  <input type="range" min="1" max="12" value="11" class="slider" id="slidMonth" onchange="selChange()">
+  <a id="slidV3">Year= 2021</a>
+  <input type="range" min="2020" max="2030" value="2021" class="slider" id="slidYear" onchange="selChange()">
+  <br><a id="slidV4">SSN= 50</a>
+  <input type="range" min="0" max="300" value="30" class="slider" id="slidSSN" onchange="selChange(1)">
+  <a id="slidV5">Dist= 100 km</a>
+  <input type="range" min="50" max="1000" value="100" class="slider" id="slidDist" onchange="selChange()">
+  <a id="slidV6">Height hF2= 200 km</a>
+  <input type="range" min="180" max="600" value="200" class="slider" id="slidHF2" onchange="selChange()">
+  <br><a id="slidV7">Power= 40 dBm</a>
+  <input type="range" min="30" max="63" value="40" class="slider" id="slidPower" onchange="selChange()">
+  <a id="slidV8">Tx Ant Height= 12 m</a>
+  <input type="range" min="2" max="40" value="12" class="slider" id="slidHant1" onchange="selChange()">
+  <a id="slidV9">Rx Ant Height= 12 m</a>
+  <input type="range" min="2" max="40" value="12" class="slider" id="slidHant2" onchange="selChange()">
+  <br><a id="slidV10">Elev Min = 12 &deg</a>
+  <input type="range" min="1" max="80" value="12" class="slider" id="slidElMin" onchange="selChange()">
+  <a id="slidV11">Ambient Noise=1</a>
+  <input type="range" min="0" max="20" value="12" class="slider" id="slidLocation" onchange="selChange()">
+  <a id="slidV12">Static=0</a>
+  <input type="range" min="0" max="20" value="0" class="slider" id="slidStorm" onchange="selChange()">
+  <br><a id="slidV13">Bandwidth= 3000 Hz</a>
+  <input type="range" min="1" max="120" value="15" class="slider" id="slidBw" onchange="selChange()">
+  <a id="slidV14">System Info: </a>
+</div>
+<hr>
+
+<canvas id="myCanvas" width="1000" height="1100" style="border:1px solid #c3c3c3;">
+
+<script src="nvis.js"></script>
+<script src="antenna.js"></script>
+<script src="atten.js"></script>
+
+<script>
+
+dT("Line1", 1);dT("Line2", 2);dT("Line3", 3);
+var nv = new myNvis("Nvis", 1);
+nvisInit(nv);
+dT("index(3)", 1);
+function selChange(ssn=0) { selUpdate(nv, ssn)};
+dT("index(5)", 1);
+
+selChange(nv);
+dT("index(10)",1);
+
+</script>
+
+</body>
+</html>
