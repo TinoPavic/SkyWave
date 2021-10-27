@@ -9,7 +9,6 @@ function dT(s, n) {
 
 function selUpdate(nvis, ssn) {    // selection has changed
   var sel, s, v;
-  dT("selUpdate(1)",2);
   sel=document.getElementById("antenna").value;   nvis.antenna=parseInt(sel);
   document.getElementById("antenna").fontsize=45;  
 
@@ -63,11 +62,8 @@ function selUpdate(nvis, ssn) {    // selection has changed
   console.log("selChange(12) "+nvis.mast+","+nvis.antenna+","+nvis.power);
   console.log("selChange(13) "+nvis.distance+", "+ nvis.location+","+nvis.storm);
   console.log("selChange(14) elevMin=",nvis.elevMin);
-  dT("selUpdate(4)", 2);
   nvisCheck(nvis);
-  dT("selUpdate(7)", 2);
-  canvasUpdate1(nvis);
-  dT("selUpdate(9)", 2);
+  mufUpdate(nvis);
 }
 
 function sunLat(nvis) {
@@ -95,21 +91,22 @@ function calcDrap(nvis) {    // predicting DRAP at 2.2 MHz
 
 function calcNoise(nvis) {                  // HF Noise per ITU-R P.372
   var Faa, Fac;
-  Faa = 49-22*Math.log10(nvis.freq);        // man made + galactic noise at quiet location
+  Faa = 45-21*Math.log10(nvis.freq/2.0);    // man made + galactic noise at quiet location
   Faa += nvis.location;                     // added man made local noise
   if(Faa < 0.0) Faa=0.0;
-  var Fac = 92-63*Math.log10(nvis.freq);    // atmospheric noise exceeded 0.5% of the time
+  var Fac = 85-67*Math.log10(nvis.freq/2);    // atmospheric noise exceeded 0.5% of the time
   Fac *= nvis.storm / 20.0;                 // adjusted for "storminess"
   if(Fac < 0.0) Fac=0.0;
   console.log("calcNoise() fr="+nvis.freq+",loc="+nvis.location+
   ",sto="+nvis.storm+",Faa="+Faa+",Fac="+Fac);  
   if(Fac>Faa)   Faa=Fac;
   Faa -= 10*Math.log10(3000/nvis.bw);
-  return Faa-147.0;                         // BW=3kHz, dBm value
+  return Faa-139.0;                         // BW=3kHz, dBm value
 }
 
 function canvasUpdate1(nvis) {    // drawing on canvas
   var w1,w2,h1,h2;
+  mufUpdate(nvis);
   console.log("canvasUpdate1(1)"); 
   dT("canvasUpdate1(1)", 3);
   nvisCheck(nvis);
@@ -171,6 +168,97 @@ function canvasUpdate1(nvis) {    // drawing on canvas
       s=Math.round(nvis.eirp+nvis.gain2-li-10-n); 
       ctx.fillText(s, 790, y);   
   }  
+}
+function mufUpdate(nvis) {    // FOT text update
+  var co, over=0;
+  var s, s2, s3;
+  nvisCheck(nvis);
+  nvisPredict(nvis); 
+  s=showfoF2(nvis); document.getElementById("slidV15").innerHTML=s; 
+  s=showMuf(nvis);  document.getElementById("slidV16").innerHTML=s; 
+  s= "f    Eirp  Li   Ld   Lt    N      SnrM  SnrD  SnrN"; 
+  document.getElementById("slidV17").innerHTML=s; 
+
+  nvis.freq=1.5;
+  var mf=nvis.muf1*1.18;
+  for ( i=0; i<24; i++) {
+      nvisCheck(nvis);   
+      nvis.freq += 0.5; 
+      if(i>8) nvis.freq+=0.5;
+      if(i>14) nvis.freq+=1;
+      mf=nvis.muf3*1.18;
+      co="black";
+      if(nvis.freq > nvis.muf1) co="orange";
+      if(nvis.freq > nvis.muf2) co="blue";
+      if(nvis.freq > nvis.muf3) co="red";
+      if(nvis.freq > mf) { co="lightgrey"; over++;}
+      //if(over>2) i=23;
+      s = nvis.freq.toPrecision(3);  
+      antennaGain(nvis);  
+      nvis.eirp= nvis.power + nvis.gain; 
+      s2=Math.round(nvis.eirp);   s+="  "+ s2 ; // show EIRP
+      li= calcFSPL(nvis);       
+      var li2 = 20* Math.log10(nvis.hops);
+      li2 += 2*(nvis.hops-1);   
+      li += li2;
+      s2=Math.round(li);  
+      if(s2>799)  s2=799; if(s2<100)  s+=" "; if(s2<10)  s+=" "; s+="  "+ s2 ; // Li
+      ld= calcDrap(nvis);  
+      n = 2.2 / nvis.freq; 
+      n = Math.pow(n, 1.9);  
+      ld *= n;   ld *=nvis.hops;
+      s2=Math.round(ld);  
+      if(s2>999)  s2=999; if(s2<100)  s+=" "; if(s2<10)  s+=" "; s+="  "+ s2 ; // Ld
+      s2=Math.round(li+ld);   
+      if(s2>999)  s2=999; if(s2<100)  s+=" "; if(s2<10)  s+=" "; s+="  "+ s2 ; // Lt
+      n = calcNoise(nvis);   
+      s2=Math.round(n); if(s2>-40)  s2=-40;   
+      s3 = Math.abs(s2); if(s3<100)  s+=" "; if(s3<10)  s+=" "; s+="  "+ s2 ;  // N
+      s2=Math.round(nvis.eirp+nvis.gain2-li-ld-n); // MidDay Snr
+      if(s2>199)   s2=199;  if(s2<-199)  s2=-199;
+      s3=Math.abs(s2);
+      if(s3<100)  s+=" "; if(s3<10)  s+=" "; if(s2>-0.5) s+=" "; s+="     "+ s2 ;
+      mf = nvis.muf3*1.01; // Day SNR
+      s2=Math.round(nvis.eirp+nvis.gain2-li-ld-n); 
+      if(s2>199)   s2=199;  if(s2<-199)  s2=-199;
+      s3=Math.abs(s2);
+      if(s3<100)  s+=" "; if(s3<10)  s+=" "; if(s2>-0.5) s+=" "; s+="  "+ s2 ; 
+      mf = nvis.muf1*1.18; // Night SNR
+      s2=Math.round(nvis.eirp+nvis.gain2-li-10-n);  
+      if(s2>199)   s2=199;  if(s2<-199)  s2=-199;
+      s3=Math.abs(s2);
+      if(s3<100)  s+=" "; if(s3<10)  s+=" "; if(s2>-0.5) s+=" "; s+="  "+ s2 ;
+      setFot(i+1, s, co);  
+  }  
+}
+
+function setFot(n, s, co) {    // FOT text update
+  var element = document.getElementById("fot1");
+  if(n==2) element = document.getElementById("fot2");
+  if(n==3) element = document.getElementById("fot3"); 
+  if(n==4) element = document.getElementById("fot4"); 
+  if(n==5) element = document.getElementById("fot5"); 
+  if(n==6) element = document.getElementById("fot6"); 
+  if(n==7) element = document.getElementById("fot7"); 
+  if(n==8) element = document.getElementById("fot8"); 
+  if(n==9) element = document.getElementById("fot9"); 
+  if(n==10) element = document.getElementById("fot10");
+  if(n==11) element = document.getElementById("fot11"); 
+  if(n==12) element = document.getElementById("fot12"); 
+  if(n==13) element = document.getElementById("fot13"); 
+  if(n==14) element = document.getElementById("fot14"); 
+  if(n==15) element = document.getElementById("fot15"); 
+  if(n==16) element = document.getElementById("fot16"); 
+  if(n==17) element = document.getElementById("fot17"); 
+  if(n==18) element = document.getElementById("fot18"); 
+  if(n==19) element = document.getElementById("fot19"); 
+  if(n==20) element = document.getElementById("fot20"); 
+  if(n==21) element = document.getElementById("fot21"); 
+  if(n==22) element = document.getElementById("fot22"); 
+  if(n==23) element = document.getElementById("fot23"); 
+  if(n==24) element = document.getElementById("fot24"); 
+  element.innerHTML=s;
+  element.style.color=co; 
 }
 
 

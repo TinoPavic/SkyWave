@@ -15,6 +15,14 @@
   background-color: lightblue;    
   text-align: left;
 }
+.fotcontainer {
+  width: 100%;
+  font-size: 2.5vw;
+  border: 5px outset red;
+  background-color: whitesmoke;    
+  text-align: left;
+  line-height: 38%;
+}
 .slidecontainer {  /* CSS style for all elements of class=slidecontainer */
   width: 100%; /* Width of the outside container */
   font-size: 1.7vw;
@@ -49,7 +57,7 @@
 </style>
 
 <div class="myDiv">
-  <a id="str2">SkyWave ...Tx Ant</a>
+  <a id="str2">SkyWave v0.1 ... Tx Ant</a>
   <select style="font-size: 1.3em" id="antenna" name="antenna" onchange="selChange()">
     <option value=1 selected>Dipole</option>
     <option value=2>CASG-A1</option>
@@ -107,18 +115,47 @@
   <a id="slidV9">Rx Ant Height= 12 m</a>
   <input type="range" min="2" max="40" value="12" class="slider" id="slidHant2" onchange="selChange()">
   <br><a id="slidV10">Elev Min = 12 &deg</a>
-  <input type="range" min="1" max="80" value="12" class="slider" id="slidElMin" onchange="selChange()">
-  <a id="slidV11">Ambient Noise=1</a>
-  <input type="range" min="0" max="20" value="12" class="slider" id="slidLocation" onchange="selChange()">
+  <input type="range" min="1" max="50" value="20" class="slider" id="slidElMin" onchange="selChange()">
+  <a id="slidV11">Ambient Noise=0</a>
+  <input type="range" min="0" max="20" value="0" class="slider" id="slidLocation" onchange="selChange()">
   <a id="slidV12">Static=0</a>
   <input type="range" min="0" max="20" value="0" class="slider" id="slidStorm" onchange="selChange()">
   <br><a id="slidV13">Bandwidth= 3000 Hz</a>
   <input type="range" min="1" max="120" value="15" class="slider" id="slidBw" onchange="selChange()">
-  <a id="slidV14">System Info: </a>
+  <a id="slidV14">Screen Info: </a>
+  <hr>
+  <a id=slidV15 style="color: blue;">foF2 Frequency Data</a>
+  <a id=slidV16 style="color:red">MUF Frequency Data</a>
+  <hr>
+</div>
+<div class="fotcontainer">
+  <pre id=slidV17>FOT Data</pre>
+  <pre id=fot1>foF2 </pre>
+  <pre id=fot2>foF2 </pre>
+  <pre id=fot3>foF2 </pre>
+  <pre id=fot4>foF2 </pre>
+  <pre id=fot5>foF2 </pre>
+  <pre id=fot6>foF2 </pre>
+  <pre id=fot7>foF2 </pre>
+  <pre id=fot8>foF2 8</pre>
+  <pre id=fot9>foF2 9</pre>
+  <pre id=fot10>foF2 10</pre>
+  <pre id=fot11>foF2 11</pre>
+  <pre id=fot12>foF2 12</pre>
+  <pre id=fot13>foF2 13</pre>
+  <pre id=fot14>foF2 14</pre>
+  <pre id=fot15>foF2 15</pre>
+  <pre id=fot16>foF2 16</pre>
+  <pre id=fot17>foF2 17</pre>
+  <pre id=fot18>foF2 18</pre>
+  <pre id=fot19>foF2 19</pre>
+  <pre id=fot20>foF2 20</pre>
+  <pre id=fot21>foF2 21</pre>
+  <pre id=fot22>foF2 22</pre> 
+  <pre id=fot23>foF2 23</pre>
+  <pre id=fot24>foF2 24</pre>
 </div>
 <hr>
-
-<canvas id="myCanvas" width="1000" height="1100" style="border:1px solid #c3c3c3;">
 
 <script src="nvis.js"></script>
 <script src="antenna.js"></script>
@@ -126,15 +163,11 @@
 
 <script>
 
-dT("Line1", 1);dT("Line2", 2);dT("Line3", 3);
 var nv = new myNvis("Nvis", 1);
 nvisInit(nv);
-dT("index(3)", 1);
-function selChange(ssn=0) { selUpdate(nv, ssn)};
-dT("index(5)", 1);
 
+function selChange(ssn=0) { selUpdate(nv, ssn)};
 selChange(nv);
-dT("index(10)",1);
 
 </script>
 

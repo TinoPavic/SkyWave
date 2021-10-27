@@ -1,3 +1,2 @@
-# SkyWave
-Skywave is mode of propagation used for HF radio.
-
+# NVIS-1D
+NVIS is mode of propagation used for HF radio.
