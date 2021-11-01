@@ -1,12 +1,3 @@
-var dbg=0;  
-function dT(s, n) {
-  if(dbg<1) return;
-  if(n==1) document.getElementById("str1").innerHTML=s;
-  if(n==2) document.getElementById("str2").innerHTML=s;
-  if(n==3) document.getElementById("str3").innerHTML=s;
-  if(n==4) document.getElementById("str4").innerHTML=s;
-}
-
 function selUpdate(nvis, ssn) {    // selection has changed
   var sel, s, v;
   sel=document.getElementById("antenna").value;   nvis.antenna=parseInt(sel);
@@ -16,11 +7,11 @@ function selUpdate(nvis, ssn) {    // selection has changed
   sel=document.getElementById("mode").value;      nvis.mode=parseInt(sel);
  
   sel=document.getElementById("slidLat").value;   nvis.lat=parseFloat(sel)-90;
-  s="Latitude="+nvis.lat+"&deg"; if(nvis.lat<0) s=s+" S"; if(nvis.lat>0) s=s+" N";
+  s="Lat="+nvis.lat+"&deg"; if(nvis.lat<0) s=s+" S"; if(nvis.lat>0) s=s+" N";
   document.getElementById("slidV1").innerHTML=s;
 
   sel=document.getElementById("slidMonth").value; nvis.month=parseInt(sel);
-  s="Month="+nvis.month;  document.getElementById("slidV2").innerHTML=s;
+  s=month2str(nvis.month);  document.getElementById("slidV2").innerHTML=s;
 
   sel=document.getElementById("slidYear").value; nvis.year=parseInt(sel);  // read year slider
   sel=document.getElementById("slidSSN").value;  nvis.ssn=parseInt(sel);   // read SSN slider
@@ -38,23 +29,23 @@ function selUpdate(nvis, ssn) {    // selection has changed
   sel=document.getElementById("slidDist").value;  nvis.distance=parseFloat(sel);
   if(nvis.mode == 2) nvis.distance*=5; if(nvis.mode == 3) nvis.distance*=30;
 
-  s="Distance="+nvis.distance+" km";  document.getElementById("slidV5").innerHTML=s;
+  s="d="+nvis.distance+" km";  document.getElementById("slidV5").innerHTML=s;
   sel=document.getElementById("slidHF2").value;   nvis.hF2=parseFloat(sel);
-  s="Height hF2="+nvis.hF2+" km";  document.getElementById("slidV6").innerHTML=s;
+  s="hF2="+nvis.hF2+" km";  document.getElementById("slidV6").innerHTML=s;
   sel=document.getElementById("slidPower").value; nvis.power=parseInt(sel);
-  s="Power="+nvis.power+" dBm";  document.getElementById("slidV7").innerHTML=s;
+  s="P="+nvis.power+" dBm";  document.getElementById("slidV7").innerHTML=s;
   sel=document.getElementById("slidHant1").value; nvis.mast=parseFloat(sel);
-  s="Mast Tx="+nvis.mast+" m";  document.getElementById("slidV8").innerHTML=s;
+  s="hTx="+nvis.mast+" m";  document.getElementById("slidV8").innerHTML=s;
   sel=document.getElementById("slidHant2").value; nvis.mast2=parseFloat(sel);
-  s="Mast Rx="+nvis.mast2+" m";  document.getElementById("slidV9").innerHTML=s;
+  s="hRx="+nvis.mast2+" m";  document.getElementById("slidV9").innerHTML=s;
   sel=document.getElementById("slidElMin").value; nvis.elevMin=parseInt(sel);
-  s="Elev Min="+nvis.elevMin+ "&deg";  document.getElementById("slidV10").innerHTML=s;
+  s="El>"+nvis.elevMin+ "&deg";  document.getElementById("slidV10").innerHTML=s;
   sel=document.getElementById("slidLocation").value; nvis.location=parseInt(sel);
-  s="Ambient Noise="+nvis.location+" dB";  document.getElementById("slidV11").innerHTML=s;  
+  s="Na="+nvis.location+" dB";  document.getElementById("slidV11").innerHTML=s;  
   sel=document.getElementById("slidStorm").value; nvis.storm=parseInt(sel);
-  s="Static= "+nvis.storm;  document.getElementById("slidV12").innerHTML=s;  
+  s="Ns= "+nvis.storm;  document.getElementById("slidV12").innerHTML=s;  
   sel=document.getElementById("slidBw").value; sel*= 200; nvis.bw=parseInt(sel);
-  s="BW= "+nvis.bw+" Hz";  document.getElementById("slidV13").innerHTML=s;  
+  s="BW="+nvis.bw+" Hz";  document.getElementById("slidV13").innerHTML=s;  
   s="Screen= "+window.innerWidth+"x"+window.innerHeight;  document.getElementById("slidV14").innerHTML=s;  
  
   nvis.gain=3.0;    nvis.eirp = nvis.power+(nvis.gain*2);  
@@ -259,7 +250,20 @@ function setFot(n, s, co) {    // FOT text update
   if(n==24) element = document.getElementById("fot24"); 
   element.innerHTML=s;
   element.style.color=co; 
+  //var fs = window.innerWidth;
+  //if(fs>1200) 
+  //element.style.fontsize="10px";
 }
+
+function month2str(n) {    // FOT text update
+  if(n==1)  return "Jan";  if(n==2)  return "Feb";  if(n==3)  return "Mar";
+  if(n==4)  return "Apr";  if(n==5)  return "May";  if(n==6)  return "Jun";
+  if(n==7)  return "Jul";  if(n==8)  return "Aug";  if(n==9)  return "Sep";
+  if(n==10) return "Oct";  if(n==11) return "Nov";  
+  return "Dec"; 
+}
+
+
 
 
  

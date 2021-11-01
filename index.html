@@ -16,8 +16,8 @@
   text-align: left;
 }
 .fotcontainer {
-  width: 100%;
-  font-size: 2.5vw;
+  width: 800px;
+  font-size: 27px;
   border: 5px outset red;
   background-color: whitesmoke;    
   text-align: left;
@@ -25,12 +25,12 @@
 }
 .slidecontainer {  /* CSS style for all elements of class=slidecontainer */
   width: 100%; /* Width of the outside container */
-  font-size: 1.7vw;
+  font-size: 22px;
 }
 .slider { /* CSS style for all elements of class=slider */
   -webkit-appearance: none;
   width: 20%;
-  height: 20px;
+  height: 30px;
   border-radius: 5px;  
   background: #d3d3d3;
   outline: none;
@@ -41,8 +41,8 @@
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 45px;
   border-radius: 50%; 
   background: #04AA6D;
   cursor: pointer;
@@ -96,37 +96,40 @@
 <hr>
 
 <div class="slidecontainer">
-  <a id="slidV1">Latitude= -38 &deg S</a>
+  <a id="slidV1">Lat= -38 &deg S</a>
   <input type="range" min="0" max="180" value="52" class="slider" id="slidLat" onchange="selChange()">
   <a id="slidV2">Month= 11</a>
   <input type="range" min="1" max="12" value="11" class="slider" id="slidMonth" onchange="selChange()">
   <a id="slidV3">Year= 2021</a>
   <input type="range" min="2020" max="2030" value="2021" class="slider" id="slidYear" onchange="selChange()">
+  <br>
   <br><a id="slidV4">SSN= 50</a>
   <input type="range" min="0" max="300" value="30" class="slider" id="slidSSN" onchange="selChange(1)">
-  <a id="slidV5">Dist= 100 km</a>
+  <a id="slidV5">d= 100 km</a>
   <input type="range" min="50" max="1000" value="100" class="slider" id="slidDist" onchange="selChange()">
-  <a id="slidV6">Height hF2= 200 km</a>
-  <input type="range" min="180" max="600" value="200" class="slider" id="slidHF2" onchange="selChange()">
-  <br><a id="slidV7">Power= 40 dBm</a>
+  <a id="slidV6">hF2= 200 km</a>
+  <input type="range" min="180" max="600" value="200" class="slider" id="slidHF2" onchange="selChange()"> 
+  <br>
+  <br><a id="slidV7">P= 40 dBm</a>
   <input type="range" min="30" max="63" value="40" class="slider" id="slidPower" onchange="selChange()">
-  <a id="slidV8">Tx Ant Height= 12 m</a>
+  <a id="slidV8">hTx=12m</a>
   <input type="range" min="2" max="40" value="12" class="slider" id="slidHant1" onchange="selChange()">
-  <a id="slidV9">Rx Ant Height= 12 m</a>
+  <a id="slidV9">hRx=12m</a>
   <input type="range" min="2" max="40" value="12" class="slider" id="slidHant2" onchange="selChange()">
-  <br><a id="slidV10">Elev Min = 12 &deg</a>
+  <br>
+  <br><a id="slidV10">El>12&deg</a>
   <input type="range" min="1" max="50" value="20" class="slider" id="slidElMin" onchange="selChange()">
-  <a id="slidV11">Ambient Noise=0</a>
+  <a id="slidV11">Na=0</a>
   <input type="range" min="0" max="20" value="0" class="slider" id="slidLocation" onchange="selChange()">
-  <a id="slidV12">Static=0</a>
-  <input type="range" min="0" max="20" value="0" class="slider" id="slidStorm" onchange="selChange()">
-  <br><a id="slidV13">Bandwidth= 3000 Hz</a>
+  <a id="slidV12">Ns=0</a>
+  <input type="range" min="0" max="40" value="0" class="slider" id="slidStorm" onchange="selChange()">
+  <br>
+  <br><a id="slidV13">BW=3000 Hz</a>
   <input type="range" min="1" max="120" value="15" class="slider" id="slidBw" onchange="selChange()">
   <a id="slidV14">Screen Info: </a>
   <hr>
   <a id=slidV15 style="color: blue;">foF2 Frequency Data</a>
   <a id=slidV16 style="color:red">MUF Frequency Data</a>
-  <hr>
 </div>
 <div class="fotcontainer">
   <pre id=slidV17>FOT Data</pre>

@@ -1,2 +1,2 @@
 # SkyWave
-SkyWave is mode of propagation used by HF radio.
+SkyWave is mode of propagation used for HF radio.
