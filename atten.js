@@ -170,13 +170,13 @@ function mufUpdate(nvis) {    // FOT text update
   s= "f    Eirp  Li   Ld   Lt    N      SnrM  SnrD  SnrN"; 
   document.getElementById("slidV17").innerHTML=s; 
 
-  nvis.freq=1.5;
+  nvis.freq=1.65;
   var mf=nvis.muf1*1.18;
   for ( i=0; i<24; i++) {
       nvisCheck(nvis);   
-      nvis.freq += 0.5; 
-      if(i>8) nvis.freq+=0.5;
-      if(i>14) nvis.freq+=1;
+      nvis.freq *= 1.12; 
+      //if(i>8) nvis.freq+=0.5;
+      //if(i>14) nvis.freq+=1;
       mf=nvis.muf3*1.18;
       co="black";
       if(nvis.freq > nvis.muf1) co="orange";
@@ -224,35 +224,10 @@ function mufUpdate(nvis) {    // FOT text update
 }
 
 function setFot(n, s, co) {    // FOT text update
-  var element = document.getElementById("fot1");
-  if(n==2) element = document.getElementById("fot2");
-  if(n==3) element = document.getElementById("fot3"); 
-  if(n==4) element = document.getElementById("fot4"); 
-  if(n==5) element = document.getElementById("fot5"); 
-  if(n==6) element = document.getElementById("fot6"); 
-  if(n==7) element = document.getElementById("fot7"); 
-  if(n==8) element = document.getElementById("fot8"); 
-  if(n==9) element = document.getElementById("fot9"); 
-  if(n==10) element = document.getElementById("fot10");
-  if(n==11) element = document.getElementById("fot11"); 
-  if(n==12) element = document.getElementById("fot12"); 
-  if(n==13) element = document.getElementById("fot13"); 
-  if(n==14) element = document.getElementById("fot14"); 
-  if(n==15) element = document.getElementById("fot15"); 
-  if(n==16) element = document.getElementById("fot16"); 
-  if(n==17) element = document.getElementById("fot17"); 
-  if(n==18) element = document.getElementById("fot18"); 
-  if(n==19) element = document.getElementById("fot19"); 
-  if(n==20) element = document.getElementById("fot20"); 
-  if(n==21) element = document.getElementById("fot21"); 
-  if(n==22) element = document.getElementById("fot22"); 
-  if(n==23) element = document.getElementById("fot23"); 
-  if(n==24) element = document.getElementById("fot24"); 
+  var sel="fot"+n;
+  var element = document.getElementById(sel);
   element.innerHTML=s;
   element.style.color=co; 
-  //var fs = window.innerWidth;
-  //if(fs>1200) 
-  //element.style.fontsize="10px";
 }
 
 function month2str(n) {    // FOT text update
