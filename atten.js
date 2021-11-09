@@ -170,11 +170,10 @@ function mufUpdate(nvis) {    // FOT text update
   s= "f    Eirp  Li   Ld   Lt    N      SnrM  SnrD  SnrN"; 
   document.getElementById("slidV17").innerHTML=s; 
 
-  nvis.freq=1.65;
+  nvis.freq=1.5;
   var mf=nvis.muf1*1.18;
-  for ( i=0; i<24; i++) {
+  for ( i=0; i<25; i++) {
       nvisCheck(nvis);   
-      nvis.freq *= 1.12; 
       //if(i>8) nvis.freq+=0.5;
       //if(i>14) nvis.freq+=1;
       mf=nvis.muf3*1.18;
@@ -220,6 +219,7 @@ function mufUpdate(nvis) {    // FOT text update
       s3=Math.abs(s2);
       if(s3<100)  s+=" "; if(s3<10)  s+=" "; if(s2>-0.5) s+=" "; s+="  "+ s2 ;
       setFot(i+1, s, co);  
+      nvis.freq *= 1.133; 
   }  
 }
 
