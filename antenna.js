@@ -157,9 +157,9 @@ if(e<3 ) g=-7.6;   if(e<1.5)  g=-35;
 return g;
 }
 
-function antennaYagi3El(fr, h, e) {  // Frequency and mast height matter
-  var h= h * fr / 300.0;
-  var g=4.2;   // default NVIS gain for 12 m mast, 2 MHz h=0.08 WL
+function antennaYagi3El(fr, h, e) {   // Frequency and mast height matter
+  var h= h * fr / 300.0;              // height in lambda fractions
+  var g=4.2;           // default NVIS gain for 12 m mast, 2 MHz h=0.08 WL
   if(e<87) g=5.3;   if(e<82) g=6.2;     if(e<77) g=6.9; 
   if(e<72) g=7.4;   if(e<63) g=7.8;     if(e<58) g=7.9; 
   if(e<52) g=7.8;  if(e<47) g=7.3;    if(e<42) g=6.7;

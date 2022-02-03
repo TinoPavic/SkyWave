@@ -61,12 +61,12 @@ function year2ssn(nvis){
   var d = 12*nvis.year+nvis.month;
   d = d/12;
   nvis.cycleCoe = 1.0 - (Math.abs(2025.5-d))/6.0; 
-  d=nvis.cycleCoe * 120;
+  d=nvis.cycleCoe * 230;
   nvis.ssn = parseInt(d)
   return d;
 }
 function ssn2year(nvis){
-  var d = nvis.ssn/24;
+  var d = nvis.ssn/32;
   d += 2020;
   nvis.year= parseInt(d);
   return d;
@@ -143,30 +143,28 @@ function calcfoF2(nvis) {  // foF2 daily minimum   min 2.0, lat+0.5, fold at S 2
 
 function latestfoF2(nvis) {  // current foF2 min max from Ionosondes
   var t=nvis.lat;
-  var f1=1.8, f3=6.0;            // Mawson Station, Antarctica   
-  if(t>-50) {f1=2.3; f3=5.9; }   // Hobart
-  if(t>-40) {f1=2.3; f3=7.0; }   // Vic Mid CBR and Hobart
-  if(t>-36) {f1=2.4; f3=8.0; }   // Canberra
-  if(t>-34.5) {f1=2.5; f3=6.3; } // Camden, Sydney
-  if(t>-32.5) {f1=2.5; f3=6.3; } // Perth
-  if(t>-31) {f1=2.8; f3=8.5; }   // Brisbane
-  if(t>-23) {f1=2.5; f3=10; }    // Townsville
-  if(t>-15) {f1=2.6; f3=11.5; }  // Darwin
-  if(t>-12) {f1=3.4; f3=11.2; }  // Jicamarca, Peru
-  if(t>-3)  {f1=2.4; f3=12; }    // Fortaleza, Brasil  
-  if(t>13)  {f1=2.8; f3=11.0;}   // Guam
-  if(t>18)  {f1=2.2; f3=8.5; }  // Porto Rico
+  var f1=3.0, f3=6.0;            // Mawson Station, Antarctica   
+  if(t>-50) {f1=3.0; f3=7.0; }   // Hobart
+  if(t>-40) {f1=3.2; f3=7.5; }   // Vic Mid CBR and Hobart
+  if(t>-36) {f1=3.4; f3=8.0; }   // Canberra
+  if(t>-34.5) {f1=2.7; f3=8.7; } // Camden, Sydney
+  if(t>-32.5) {f1=2.7; f3=8.7; } // Perth
+  if(t>-31) {f1=3.5; f3=7.5; }   // Brisbane
+  if(t>-23) {f1=3.5; f3=11.5; }  // Townsville
+  if(t>-15) {f1=3.8; f3=12.5; }  // Darwin
+  if(t>-12) {f1=2.4; f3=12.2; }  // Jicamarca, Peru
+  if(t>-3)  {f1=2.2; f3=12.8; }  // Fortaleza, Brasil  
+  if(t>13)  {f1=2.4; f3=12.0;}   // Guam
+  if(t>18)  {f1=2.2; f3=11.5; }  // Porto Rico
   if(t>26)  {f1=2.2; f3=12;  }  // Okinawa
-  if(t>34)  {f1=2.4; f3=8.8; }  // Nicosia
+  if(t>34)  {f1=2.6; f3=9.8; }  // Nicosia
   if(t>41)  {f1=2.5; f3=8.8; }  // Rome
-  if(t>55)  {f1=1.8; f3=7.5; }  // Moscow 
-  if(t>69)  {f1=1.4; f3=6.5; }  // Tromso
-
-
+  if(t>55)  {f1=1.8; f3=8.1; }  // Moscow 
+  if(t>69)  {f1=1.7; f3=5.5; }  // Tromso
   
-   f2 = (f1+f3)/2;                // adjust f2
+  f2 = (f1+f3)/2;                // adjust f2
   // Mix with prediction
-  var ye=2021, mo=10, da=8;   // date when Ionosonde adjusted  
+  var ye=2022, mo=2, da=3;   // date when Ionosonde adjusted  
   var d1 = ye*365 + mo*30.5 + da;
   var d2 = nvis.year*365 + nvis.month*30.5 + 15; // date prediction in days
   var me=(d2-d1)/90; me=Math.abs(me);
