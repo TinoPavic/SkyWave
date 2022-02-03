@@ -61,7 +61,7 @@ function year2ssn(nvis){
   var d = 12*nvis.year+nvis.month;
   d = d/12;
   nvis.cycleCoe = 1.0 - (Math.abs(2025.5-d))/6.0; 
-  d=nvis.cycleCoe * 230;
+  d=nvis.cycleCoe * 180;
   nvis.ssn = parseInt(d)
   return d;
 }
