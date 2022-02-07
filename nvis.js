@@ -1,7 +1,7 @@
 class myNvis {
     constructor(name, c) {
         this.id=name;       this.code=c;  // debug information
-        this.year = 2020;   this.month = 11; 
+        this.year = 2022;   this.month = 3; 
         this.lat=-38;       this.lon=-144;   this.bw=3000.0; 
         this.month=11;      this.year=2020;  this.ssn=20;  
         this.distance=100;  this.gain=6;     this.gain2=6;    
@@ -21,7 +21,8 @@ function nvisInit(nvis) {
   var dt = new Date(); // Current date 
   nvis.year = dt.getFullYear();  nvis.month = dt.getMonth()+1; 
   nvis.lat=-38;       nvis.lon=-144;    nvis.bw=3000;
-  nvis.month=11;      nvis.year=2020;   nvis.ssn=20;
+  //nvis.month=3;      nvis.year=2022;   
+  nvis.ssn=82;
   nvis.distance=100;  nvis.gain=6;    nvis.power=52; nvis.hops=1; 
   nvis.location=0;    nvis.storm=0;    nvis.eirp = 64;  
   nvis.hF2 = 300.0;   nvis.elev=90;    nvis.elevMin=10; nvis.freq=2.2;
