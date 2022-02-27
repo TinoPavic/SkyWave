@@ -106,7 +106,7 @@ function selUpdate(nvis, ssn) {    // selection has changed
         s3=Math.abs(s2);
         if(s3<100)  s+=" "; if(s3<10)  s+=" "; if(s2>-0.5) s+=" "; s+="     "+ s2 ;
         mf = nvis.muf3*1.01; // Day SNR
-        s2=Math.round(nvis.eirp+nvis.gain2-li-ld-n); 
+        s2=Math.round(nvis.eirp+nvis.gain2-li-0.9*ld-n); 
         if(s2>199)   s2=199;  if(s2<-199)  s2=-199;
         s3=Math.abs(s2);
         if(s3<100)  s+=" "; if(s3<10)  s+=" "; if(s2>-0.5) s+=" "; s+="  "+ s2 ; 
