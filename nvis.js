@@ -1,9 +1,8 @@
 class myNvis {
     constructor(name, c) {
         this.id=name;       this.code=c;  // debug information
-        this.year = 2022;   this.month = 3; 
         this.lat=-38;       this.lon=-144;   this.bw=3000.0; 
-        this.month=11;      this.year=2020;  this.ssn=20;  
+        this.month=6;      this.year=2022;  this.ssn=20;  
         this.distance=100;  this.gain=6;     this.gain2=6;    
         this.power=52;      this.eirp = 64;  
         this.location=0;    this.storm=0;      
@@ -145,28 +144,28 @@ function calcfoF2(nvis) {  // foF2 daily minimum   min 2.0, lat+0.5, fold at S 2
 
 function latestfoF2(nvis) {  // current foF2 min max from Ionosondes
   var t=nvis.lat;
-  var f1=3.0, f3=6.0;            // Mawson Station, Antarctica   
-  if(t>-50) {f1=3.1; f3=7.6; }   // Hobart
-  if(t>-40) {f1=3.4; f3=8.4; }   // Vic Mid CBR and Hobart
-  if(t>-36) {f1=3.7; f3=9.0; }   // Canberra
-  if(t>-34.5) {f1=3.7; f3=9.2; } // Camden, Sydney
-  if(t>-32.5) {f1=3.7; f3=9.2; } // Perth
-  if(t>-31) {f1=4.0; f3=10.5; }   // Brisbane
-  if(t>-23) {f1=3.5; f3=12.0; }  // Townsville
-  if(t>-15) {f1=3.1; f3=13.5; }  // Darwin
-  if(t>-12) {f1=2.4; f3=12.2; }  // Jicamarca, Peru
-  if(t>-3)  {f1=2.2; f3=13.5; }  // Fortaleza, Brasil  
+  var f1=3.0, f3=10.0;            // Mawson Station, Antarctica   
+  if(t>-50) {f1=2.5; f3=10.3; }   // Hobart
+  if(t>-40) {f1=2.8; f3=9.6; }   // Vic Mid CBR and Hobart
+  if(t>-36) {f1=3.1; f3=9.6; }   // Canberra
+  if(t>-34.5) {f1=2.7; f3=9.6; } // Camden, Sydney
+  if(t>-32.5) {f1=2.6; f3=9.6; } // Perth
+  if(t>-31) {f1=3.6; f3=10.5; }   // Brisbane
+  if(t>-23) {f1=2.8; f3=10.3; }  // Townsville
+  if(t>-15) {f1=2.2; f3=12.7; }  // Darwin
+  if(t>-12) {f1=2.2; f3=12.2; }  // Jicamarca, Peru
+  if(t>-3)  {f1=2.0; f3=13.0; }  // Fortaleza, Brasil  
   if(t>13)  {f1=2.4; f3=13.5;}   // Guam
-  if(t>18)  {f1=2.2; f3=12.5; }  // Porto Rico
-  if(t>26)  {f1=2.2; f3=13;  }  // Okinawa
-  if(t>34)  {f1=2.6; f3=9.8; }  // Nicosia
-  if(t>41)  {f1=2.5; f3=9.8; }  // Rome
-  if(t>55)  {f1=1.8; f3=8.8; }  // Moscow 
-  if(t>69)  {f1=1.9; f3=7.5; }  // Tromso
+  if(t>18)  {f1=3.0; f3=13.1; }  // Porto Rico
+  if(t>26)  {f1=3.4; f3=14.0; }  // Okinawa
+  if(t>34)  {f1=3.5; f3=10.0; }  // Nicosia
+  if(t>41)  {f1=3.3; f3=10.5; }  // Rome
+  if(t>55)  {f1=3.8; f3=8.8; }  // Moscow 
+  if(t>69)  {f1=2.4; f3=8.5; }  // Tromso
   
   f2 = (f1+f3)/2;                // adjust f2
   // Mix with prediction
-  var ye=2022, mo=3, da=10;   // date when Ionosonde adjusted  
+  var ye=2022, mo=5, da=29;   // date when Ionosonde adjusted  
   var d1 = ye*365 + mo*30.5 + da;
   var d2 = nvis.year*365 + nvis.month*30.5 + 15; // date prediction in days
   var me=(d2-d1)/90; me=Math.abs(me);
@@ -208,7 +207,7 @@ function showMuf(nvis) {
   var s2 = '\xB0';
   s1 += ", El="+nvis.elev.toFixed(0)+s2;
   var c = R2D(nvis.B);
-  s1 += ", B="+c.toFixed(1);
+  s1 += ", B="+c.toFixed(1)+s2;
   return s1;  
 }
 
